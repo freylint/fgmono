@@ -1,0 +1,6 @@
+{
+  "name": "fgmono",
+  "workspaces": [
+    "pkg/mimage"
+  ]
+}
