@@ -1,0 +1,298 @@
+import express from "express";
+import { readFileSync } from "fs";
+
+// Initialized via build script
+const webpage = `<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FreyGround</title>
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="description" content="">
+
+    <meta property="og:title" content="Freyground">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:image:alt" content="">
+
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js"
+        integrity="sha512-zMm7+ZQ8AZr1r3W8Z8lDATkH05QG5Gm2xc6MlsCdBz9l6oE8Y7IXByMgSm/rdRQrhuHt99HAYfMljBOEZ68q5A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        html,
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: black;
+            font-size: 100%;
+            vertical-align: baseline;
+            color: white;
+            background: linear-gradient(14deg, #422100, #2e0053);
+        }
+
+        button {
+            background: none;
+            border: none;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+        }
+
+        .flex-row {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            align-items: baseline;
+            margin-inline: auto;
+            width: 100%
+        }
+
+        .inline-to-start {
+            display: inline-flex;
+            margin-inline-end: auto;
+        }
+
+        .inline-to-end {
+            display: inline-flex;
+            margin-inline-start: auto;
+        }
+
+        .auto-margin {
+            margin: auto;
+        }
+
+        .fill {
+            width: 100%;
+            height: 100%;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: calc(100% - 32px) !important;
+            margin-inline: 0 !important;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            background: black !important;
+            border-start-start-radius: 0px !important;
+            border-start-end-radius: 0px !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .glassbg {
+            background: rgba(14, 14, 14, 0.863);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding-inline: 1rem;
+            padding-block-start: 0.25rem;
+            padding-block-end: 1rem;
+            margin: 0.5rem;
+            margin-block-start: 0;
+            width: auto;
+        }
+
+        .glassbg-alternate {
+            background: rgb(24, 24, 24);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding-inline: 1rem;
+            padding-block-start: 0.25rem;
+            padding-block-end: 1rem;
+            margin: 0.5rem;
+            width: auto;
+        }
+
+        /* Wider than tall */
+        @media (min-aspect-ratio: 1/1) {
+            .reactive-margin {
+                margin: 10svw;
+            }
+            .reactive-hide {
+                display: flex;
+            }
+
+            .reactive-show {
+                display: none;
+            }
+
+            .reactive-column {
+                display: flex;
+                flex-direction: row;
+            }
+        }
+
+        /* Taller than wide */
+        @media (max-aspect-ratio: 1/1) {
+            .reactive-margin {
+                margin: 2svh;
+            }
+            .reactive-hide {
+                display: none;
+            }
+
+            .reactive-show {
+                display: flex;
+            }
+
+            .reactive-column {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js"></script>
+
+</head>
+
+<body>
+    <header class="glassbg" class="flew-row">
+        <h1>/@|> FreyGround ... </h1>
+
+        <h2 class="inline-to-end auto-margin">Technology Found</h2>
+    </header>
+    <main class="reactive-margin" style="margin-top: 16.25vh;">
+
+        <!-- Quicklinks -->
+        <section class="glassbg">
+            <div class="flex-row">
+                <i data-feather="truck"></i>
+                <h2>Dashboard</h2>
+            </div>
+            <span class="reactive-column">
+                <aside class="glassbg-alternate">
+                    <h2>About</h2>
+                    <p>FreyGround is a personal website and blog for FreyLint, a software developer and systems
+                        administrator. Here you can find information about my projects, articles, and contact
+                        information.</p>
+                </aside>
+                <nav class="glassbg-alternate">
+                    <h2>Nav</h2>
+
+                    <div class="flex-column">
+                        <a>Projects</a>
+                        <a>FreyGround</a>
+                        <a>mImage</a>
+                        <a>EPLenia</a>
+                        <a>FGCollate</a>
+                    </div>
+
+                    <div class="flex-column">
+                        <a>Articles</a>
+                        <a>Coming Soon...</a>
+                    </div>
+                </nav>
+                <aside class="glassbg-alternate">
+                    <h2>Contact</h2>
+                    <button>Email</button>
+                    <button>Report Issue</button>
+                    <button>Responsible Disclosure</button>
+                    <button>Github</button>
+                    <button>LinkedIn</button>
+                </aside>
+                <aside class="glassbg-alternate" href="https://admin.freyground.com" aria-label="Health" title="Health">
+                    <h2>Metrics</h2>
+                    <p>Service Status: 0/0</p>
+                    <p>Uptime: 0%</p>
+                    <p>Load: 0/0%</p>
+                    <p>Build: Passing</p>
+                    <p>Coverage 0%</p>
+                </aside>
+
+            </span>
+
+        </section>
+
+        <!-- Projects -->
+        <section class="glassbg reactive-column" id="proj_container">
+            <button class="flex-row" href="https://github.com/freylint" aria-label="GitHub" title="GitHub">
+                <i data-feather="terminal"></i>
+                <h2>Projects</h3>
+            </button>
+            <template id="project_entry">
+                <article class="glassbg-alternate">
+                    <section>
+                        <div class="flex-row">
+                            <h4></h4>
+                        </div>
+                        <p>template</p>
+                    </section>
+                </article>
+            </template>
+            <script>
+                const ptemplate = document.getElementById("project_entry");;
+
+                function addProject(title, description, icon = "folder") {
+                    const clone = ptemplate.content.cloneNode(true);
+                    clone.querySelector("h4").innerText = title;
+                    clone.querySelector("p").innerText = description;
+                    clone.querySelectorAll("i").forEach(element => {
+                        element.setAttribute("data-feather", icon);
+                    });
+                    document.getElementById("proj_container").appendChild(clone);
+                }
+
+                addProject("FreyGround", "Homelab, cloud, and MonoRepository", "layers");
+                addProject("mImage", "BootC based atomic bare metal and cloud OS image deployment.", "server");
+                addProject("EPLenia", "Evolutionary particle based Lenia.", "life-buoy");
+                addProject("FGCollate", "Dead simple service health collator", "hash");
+
+            </script>
+        </section>
+
+        <!-- Articles -->
+        <section class="glassbg auto-margin">
+            <button class="flex-row" href="mailto:admin@freyground.com" aria-label="Contact" title="Contact">
+                <i data-feather="mail"></i>
+                <h2>Articles</h2>
+            </button>
+            <article class="glassbg-alternate">
+                <h3>BootC and Ansible, SOHO as Code</h3>
+                <p>
+                    It's been a years long quest, really. Clawing my way through platform
+                    and solution, nix and ansible, docker and kubernetes. 
+                    All in the name of building a maintainable Homelab
+                    that doesn't require you to learn a programming language to install software.
+                </p>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        // Fill in feather icons
+        if (typeof feather !== 'undefined') {
+            try { feather.replace(); } catch (e) { /* ignore */ }
+        }
+    </script>
+</body>
+
+</html>`;
+
+const app = express();
+const port = 8080;
+
+
+app.get('/', (req, res) => {
+  res.send(webpage);
+})
+
+app.use((req, res, next) => {
+  res.status(404).send('404 Not Found');
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})

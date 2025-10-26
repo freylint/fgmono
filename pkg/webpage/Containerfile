@@ -1,0 +1,10 @@
+# FGMono Webpage Containerfile
+
+FROM fedora:42 as builder
+
+EXPOSE 8080 80
+WORKDIR /fg/webpage-builder
+COPY . .
+RUN dnf install -y nodejs npm && npm i && npm run template && dnf clean all
+ENTRYPOINT ["npm", "run", "serve"]
+

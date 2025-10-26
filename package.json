@@ -1,6 +1,12 @@
 {
   "name": "fgmono",
   "workspaces": [
-    "pkg/mimage"
-  ]
+    "pkg/mimage",
+    "pkg/webpage",
+    "pkg/fgcollate"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev_all.js"
+  }
 }

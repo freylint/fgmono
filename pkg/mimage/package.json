@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run": "ts-node main.ts"
+    "build": "sudo npx ts-node main.ts",
+    "switch": "sudo npx ts-node main.ts --switch"
   },
   "author": "",
   "license": "ISC",

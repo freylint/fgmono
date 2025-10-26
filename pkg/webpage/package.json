@@ -1,0 +1,37 @@
+{
+  "name": "webpage",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "src/main.ts",
+  "bin": {
+    "webpage": "build/webpage"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.4",
+    "@types/node": "^24.9.1",
+    "@yao-pkg/pkg": "^6.9.0",
+    "lodash": "^4.17.21",
+    "nodemon": "^3.1.10",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "template": "node scripts/do-template.cjs",
+    "dev": "npm run template && npm run serve",
+    "serve": "ts-node build/main.ts",
+    "watch": "nodemon --watch src --ext ts,html --exec \"npm run dev\"",
+    "build": "npm run template && podman build -t fgmono-webpage ."
+  },
+  "author": "",
+  "license": "ISC",
+  "pkg": {
+    "assets": [
+      "src/index.html"
+    ]
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "ts-node": "^10.9.2"
+  }
+}
